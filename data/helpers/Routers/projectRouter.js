@@ -1,4 +1,6 @@
 const express = require('express')
 
 const projectDb = require('../projectModel.js')
-const router = expres.Router()
+const router = express.Router()
+
+module.exports = router
