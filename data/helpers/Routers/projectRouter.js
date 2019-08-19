@@ -15,6 +15,43 @@ router.get('/', (req, res) => {
         })
 })
 
+router.post('/', checkProj, async (req, res, next) => {
+    try {
+        const body = req.body
+        const newProject = await projectDb.insert(body)
+        res.status(201).json(newProject)
+    } catch (error) {
+        res.status(500).json({
+            message: 'there was an error adding the project'
+        })
+    }
+})
+
+router.put('/:id', async (req, res, next) => {
+    try {
+        const { id } = req.params
+        const projChanges = req.body
+        const change = await projectDb.update(id, projChanges)
+        res.status(200).json(change)
+    } catch (error) {
+        res.status(500).json({
+            message: 'there was an error changing the projet'
+        })
+    }
+})
+
+router.delete('/:id', async (req, res) => {
+    try {
+        const { id } = req.params
+        const remove = await projectDb.delete(id)
+        res.status(200).json(remove)
+    } catch (error) {
+        res.status(500).json({
+            message: 'there was an error deleting the project'
+        })
+    }
+})
+
 // more middleware :)
 function checkProj (req, res, next) {
     if(!req.body.name && !req.body.description) {
