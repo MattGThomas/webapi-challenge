@@ -88,7 +88,7 @@ function checkActions (req, res, next) {
 function checkProjId (req, res, next) {
     const { id } = req.params
 
-    Project.getProjectActions(id)
+    projectsDb.getProjectActions(id)
         .then(proj => {
             if(proj) {
                 req.project_id = proj
